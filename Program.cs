@@ -47,4 +47,16 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+if (!app.Environment.IsDevelopment())
+{
+    app.UseDefaultFiles();
+    app.UseStaticFiles();
+}
+
+// Enable SPA fallback to index.html
+app.MapFallbackToFile("index.html");
+app.UseStaticFiles();
+app.UseDefaultFiles();
+
+
 app.Run();

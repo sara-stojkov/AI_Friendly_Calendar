@@ -155,3 +155,6 @@ C:\Users\Sara\Posao\kursevi\DataArt IT Camp June 2025\AI_Friendly_Calendar\bin\D
 C:\Users\Sara\Posao\kursevi\DataArt IT Camp June 2025\AI_Friendly_Calendar\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\Sara\Posao\kursevi\DataArt IT Camp June 2025\AI_Friendly_Calendar\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\Sara\Posao\kursevi\DataArt IT Camp June 2025\AI_Friendly_Calendar\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Sara\Posao\kursevi\DataArt IT Camp June 2025\AI_Friendly_Calendar\bin\Debug\net9.0\clientapp\package-lock.json
+C:\Users\Sara\Posao\kursevi\DataArt IT Camp June 2025\AI_Friendly_Calendar\bin\Debug\net9.0\clientapp\package.json
+C:\Users\Sara\Posao\kursevi\DataArt IT Camp June 2025\AI_Friendly_Calendar\bin\Debug\net9.0\clientapp\public\manifest.json
