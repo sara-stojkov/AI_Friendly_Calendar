@@ -1,6 +1,7 @@
 using AI_Friendly_Calendar.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using AI_Friendly_Calendar.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,8 @@ builder.Services.AddControllers();
 // Register your DbContext (adjust connection string name if needed)
 builder.Services.AddDbContext<CalendarDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddEndpointsApiExplorer();
 
 // Add Swagger generator
 builder.Services.AddSwaggerGen(c =>
@@ -21,6 +24,9 @@ builder.Services.AddSwaggerGen(c =>
         Description = "API to test login and register endpoints"
     });
 });
+
+builder.Services.AddScoped<IFreeSlotService, FreeSlotService>();
+
 
 var app = builder.Build();
 

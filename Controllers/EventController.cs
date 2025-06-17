@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using AI_Friendly_Calendar.Models;
 using System.Linq;
+using AI_Friendly_Calendar.Services;
 
 namespace AI_Friendly_Calendar.Controllers
 {
@@ -48,10 +49,12 @@ namespace AI_Friendly_Calendar.Controllers
     public class EventToolsController : ControllerBase
     {
         private readonly CalendarDbContext _context;
+        private readonly IFreeSlotService _freeSlotService;
 
-        public EventToolsController(CalendarDbContext context)
+        public EventToolsController(CalendarDbContext context, IFreeSlotService freeSlotService)
         {
             _context = context;
+            _freeSlotService = freeSlotService;
         }
 
         // POST /api/v1/events
@@ -65,7 +68,7 @@ namespace AI_Friendly_Calendar.Controllers
 
         // Helper method for CreatedAtAction
         [HttpGet("{id}")]
-        [ApiExplorerSettings(IgnoreApi = true)] // Hide from Swagger, this is only helper
+        [ApiExplorerSettings(IgnoreApi = true)] // Hide from Swagger, helper only
         public IActionResult GetEventById(int id)
         {
             var ev = _context.Events.FirstOrDefault(e => e.Id == id);
@@ -80,11 +83,12 @@ namespace AI_Friendly_Calendar.Controllers
             var existing = _context.Events.FirstOrDefault(e => e.Id == id);
             if (existing == null) return NotFound();
 
-            // Update fields as needed
+            // Update fields
             existing.Title = updatedEvent.Title;
-            existing.Date = updatedEvent.Date;
+            existing.StartTime = updatedEvent.StartTime;
+            existing.EndTime = updatedEvent.EndTime;
             existing.Description = updatedEvent.Description;
-            // add other fields here
+            // Add other fields as needed
 
             _context.SaveChanges();
             return NoContent();
@@ -116,9 +120,18 @@ namespace AI_Friendly_Calendar.Controllers
             return CreatedAtAction(nameof(GetParticipant), new { eventId = eventId, userId = participant.UserId }, participant);
         }
 
-        // GET participant helper
+        // Helper: GET participant (optional)
         [HttpGet("{eventId}/participants/{userId}")]
         [ApiExplorerSettings(IgnoreApi = true)]
+        public IActionResult GetParticipant(int eventId, int userId)
+        {
+            var participant = _context.Participants.FirstOrDefault(p => p.EventId == eventId && p.UserId == userId);
+            if (participant == null) return NotFound();
+            return Ok(participant);
+        }
+
+        // DELETE /api/v1/events/{eventId}/participants/{userId}
+        [HttpDelete("{eventId}/participants/{userId}")]
         public IActionResult RemoveParticipant(int eventId, int userId)
         {
             var participant = _context.Participants.FirstOrDefault(p => p.EventId == eventId && p.UserId == userId);
@@ -127,6 +140,25 @@ namespace AI_Friendly_Calendar.Controllers
             _context.Participants.Remove(participant);
             _context.SaveChanges();
             return NoContent();
+        }
+
+        // ✅ POST /api/v1/events/find-free-slot
+        [HttpPost("find-free-slot")]
+        public IActionResult FindFreeSlot([FromBody] FreeSlotRequest request)
+        {
+            var busySlots = _context.Participants
+                .Where(p => request.UserIds.Contains(p.UserId))
+                .Select(p => p.Event)
+                .Where(e => e.EndTime >= request.From && e.StartTime <= request.To)
+                .ToList();
+
+            var freeSlot = _freeSlotService.FindEarliestFreeSlot(
+                request.From, request.To, request.Duration, busySlots);
+
+            if (freeSlot == null)
+                return NotFound("No common free slot found in the given range.");
+
+            return Ok(freeSlot);
         }
     }
 }
