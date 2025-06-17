@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "gTMiYUu2Vdo=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Sara\\Posao\\kursevi\\DataArt IT Camp June 2025\\AI_Friendly_Calendar\\AI_Friendly_Calendar.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Sara\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.6\\microsoft.aspnetcore.openapi.9.0.6.nupkg.sha512",
+    "C:\\Users\\Sara\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
