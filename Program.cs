@@ -21,7 +21,7 @@ builder.Services.AddSwaggerGen(c =>
     {
         Title = "AI Friendly Calendar API",
         Version = "v1",
-        Description = "API to test login and register endpoints"
+        Description = "API to test calendar functionalities by Sara Stojkov"
     });
     // 👇 Tell Swagger to include your custom group called "tools"
     c.DocInclusionPredicate((docName, apiDesc) =>
