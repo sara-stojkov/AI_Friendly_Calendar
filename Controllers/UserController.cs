@@ -6,7 +6,7 @@ namespace AI_Friendly_Calendar.Controllers
 {
     [ApiController]
     [Route("api/v1/users")]
-    [ApiExplorerSettings(GroupName = "tools")]  // User actions = tools (executable actions)
+    // [ApiExplorerSettings(GroupName = "tools")]  // User actions = tools (executable actions)
     public class UserController : ControllerBase
     {
         private readonly CalendarDbContext _context;

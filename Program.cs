@@ -23,6 +23,12 @@ builder.Services.AddSwaggerGen(c =>
         Version = "v1",
         Description = "API to test login and register endpoints"
     });
+    // 👇 Tell Swagger to include your custom group called "tools"
+    c.DocInclusionPredicate((docName, apiDesc) =>
+    {
+        if (docName == "v1") return true; // include all
+        return apiDesc.GroupName == docName;
+    });
 });
 
 builder.Services.AddScoped<IFreeSlotService, FreeSlotService>();

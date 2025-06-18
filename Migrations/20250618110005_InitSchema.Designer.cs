@@ -3,6 +3,7 @@ using System;
 using AI_Friendly_Calendar.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AI_Friendly_Calendar.Migrations
 {
     [DbContext(typeof(CalendarDbContext))]
-    partial class CalendarDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250618110005_InitSchema")]
+    partial class InitSchema
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.6");
