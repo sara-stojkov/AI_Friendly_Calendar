@@ -1,46 +1,20 @@
-import React, { useEffect, useState } from 'react';
+// clientapp/src/App.js
+
+import React, { useState } from "react";
+import LoginForm from "./components/LoginForm";
+import Calendar from "./components/Calendar"; // ✅ Your Calendar component
+// clientapp/src/App.js
+import 'react-calendar/dist/Calendar.css';
 
 function App() {
-  const [events, setEvents] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  // Fetch events when the component mounts
-  useEffect(() => {
-    fetch('/api/v1/events')
-      .then(response => {
-        if (!response.ok) throw new Error('Failed to fetch events.');
-        return response.json();
-      })
-      .then(data => {
-        setEvents(data);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error('Error fetching events:', error);
-        setLoading(false);
-      });
-  }, []);
+  const [user, setUser] = useState(null);
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <h1>📅 AI Friendly Calendar</h1>
-
-      {loading && <p>Loading events...</p>}
-
-      {!loading && events.length === 0 && (
-        <p>No events found. Try adding some through the API!</p>
-      )}
-
-      {!loading && events.length > 0 && (
-        <ul>
-          {events.map(event => (
-            <li key={event.id}>
-              <strong>{event.title}</strong> <br />
-              {new Date(event.startTime).toLocaleString()} —{' '}
-              {new Date(event.endTime).toLocaleString()}
-            </li>
-          ))}
-        </ul>
+    <div>
+      {user ? (
+        <Calendar user={user} />
+      ) : (
+        <LoginForm onLogin={setUser} />
       )}
     </div>
   );
