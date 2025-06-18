@@ -46,3 +46,11 @@ Prerequisites
 .NET 9 SDK
 
 Git
+
+
+### Testing the API 
+
+![image](https://github.com/user-attachments/assets/df7fdbc3-9a3d-4280-bec2-9905ebcdd85c)
+
+![image](https://github.com/user-attachments/assets/1e35b5cc-8c63-4379-97a3-3c03a9c7562b)
+
